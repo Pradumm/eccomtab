@@ -1,42 +1,21 @@
 import React, { useContext } from 'react';
 import Footer from './Footer'
 import { UserContext } from './Api/context/AppContext';
+// import CardSummery from './CardSummery';
+
+
+
+
 
 const ShoppingCart = () => {
     // Define your product data and cart summary here
 
-    const { cardItem, removeFromCard, handleQuantity ,cardsubtotal } = useContext(UserContext)
+    const { cardItem, removeFromCard, handleQuantity, cardsubtotal } = useContext(UserContext)
 
-    console.log(cardItem)
-
-
+    
 
 
-    // const products = [
-    //     {
-    //         name: "Colorful Stylish Shirt",
-    //         image: "img/product-1.jpg",
-    //         price: 150,
-    //         quantity: 1,
-    //     },
-    //     {
-    //         name: "Colorful Stylish Shirt",
-    //         image: "img/product-1.jpg",
-    //         price: 150,
-    //         quantity: 1,
-    //     },
-    //     {
-    //         name: "Colorful Stylish Shirt",
-    //         image: "img/product-1.jpg",
-    //         price: 150,
-    //         quantity: 1,
-    //     },
-    //     // Add more products as needed
-    // ];
 
-    // const subtotal = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-    // const shippingCost = 10;
-    // const total = subtotal + shippingCost;
 
     return (
         <>
@@ -121,38 +100,8 @@ const ShoppingCart = () => {
                                     </table>
                                 </div>
 
-
                                 <div className="col-lg-4">
-                                    <form className="mb-5" action="">
-                                        <div className="input-group">
-                                            <input type="text" className="form-control p-4" placeholder="Coupon Code" />
-                                            <div className="input-group-append">
-                                                <button className="btn btn-primary">Apply Coupon</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div className="card border-secondary mb-5">
-                                        <div className="card-header bg-secondary border-0">
-                                            <h4 className="font-weight-semi-bold m-0">Cart Summary</h4>
-                                        </div>
-                                        <div className="card-body">
-                                            <div className="d-flex justify-content-between mb-3 pt-1">
-                                                <h6 className="font-weight-medium">Subtotal</h6>
-                                                <h6 className="font-weight-medium">${cardsubtotal}</h6>
-                                            </div>
-                                            <div className="d-flex justify-content-between">
-                                                <h6 className="font-weight-medium">Shipping</h6>
-                                                <h6 className="font-weight-medium">${"shippingCost"}</h6>
-                                            </div>
-                                        </div>
-                                        <div className="card-footer border-secondary bg-transparent">
-                                            <div className="d-flex justify-content-between mt-2">
-                                                <h5 className="font-weight-bold">Total</h5>
-                                                <h5 className="font-weight-bold">${cardsubtotal}</h5>
-                                            </div>
-                                            <button className="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
-                                        </div>
-                                    </div>
+                                      {/* <CardSummery/> */}
                                 </div>
                             </div>
                         </div>

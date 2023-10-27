@@ -12,8 +12,7 @@ function Header() {
 
     const { data, loading } = useFetchApi("http://143.244.142.0/api/v1/parts/categories/");
 
-
-
+    
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         setToken(storedToken);

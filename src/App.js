@@ -1,6 +1,6 @@
 
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 // import Navbar from './components/Navbar';
@@ -14,42 +14,40 @@ import Contact from './components/Contact';
 import Checkout from './components/Checkout';
 import Register from './components/register/Register';
 import LoginPage from './components/login/Login';
-// import { Home } from './components/pages/Home';
-// import { About } from './components/pages/About';
-// import { Services } from './components/pages/Services';
-// import { Blog } from './components/pages/Blog';
-// import { Contact } from './components/pages/Contact';
+
+import { UserContext } from './components/Api/context/AppContext';
 
 
-import AppContext from './components/Api/context/AppContext';
 import YourComponent from './components/Org/Orgdetails';
+import Shopproduct from './components/product/Shopproduct';
 
 
 function App() {
+
+
+
   return (
-    <> 
-   
-      <BrowserRouter>
-      <AppContext>
-          <Header />
-          <Routes>
+    <>
 
-            <Route path='/' element={<Home />} />
-            <Route path='/categories/:id' element={<Shop />} />
-            <Route path='/singleproduct/:id' element={<SingleProduct />} />
-            <Route path='/shoppingCart' element={<ShoppingCart />} />
-            <Route path='/contact' element={<Contact />} />
-            <Route path='/checkout' element={<Checkout />} />
-            <Route path='/Register' element={<Register />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/org-address' element= {<YourComponent/>}/>
-          </Routes>
-          {/* <Footer /> */}
 
-          </AppContext>
-      </BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/categories/:id' element={<Shop />} />
+        <Route path='/singleproduct/:id' element={<SingleProduct />} />
 
-     
+        <Route path='/shoppingCart' element={<ShoppingCart />} />
+        <Route path='/login' element={<LoginPage />} />
+
+        <Route path='/contact' element={<Contact />} />
+        <Route path='/checkout' element={<Checkout />} />
+        <Route path='/Register' element={<Register />} />
+        <Route path='/product' element={<Shopproduct />} />
+
+        <Route path='/org-address' element={<YourComponent />} />
+      </Routes>
+      {/* <Footer /> */}
+
 
 
     </>

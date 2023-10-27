@@ -4,14 +4,13 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 export const UserContext = createContext();
 
-
-
 const AppContext = ({ children }) => {
     const location = useLocation()
 
     const [tokenvalue, setTokenvalue] = useState(true);
+    const [autho, setautho] = useState(true);
 
-    const [categories, setCategories] = useState([])
+
     // console.log(categories,"________categories")
     const [product, setProduct] = useState([])
 

@@ -1,12 +1,16 @@
 import React from 'react'
 import cat from "../../components/assets/cat-1.jpg"
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../Api/context/AppContext';
 
 
 const CartItem = ({ product }) => {
     console.log(product, "__________")
+    const { addToCard } = useContext(UserContext)
 
     const { mrp, short_description, prices } = product;
+
 
     let currentprice = prices; // Assuming you already have prices as an array
 
@@ -38,7 +42,7 @@ const CartItem = ({ product }) => {
                     </div>
                     <div className="card-footer d-flex justify-content-between bg-light border">
                         <Link to={`/singleproduct/${product.part_number}`} className="btn btn-sm text-dark p-0"><i className="fas fa-eye text-primary mr-1"></i>View Detail</Link>
-                        <Link to="" className="btn btn-sm text-dark p-0"><i className="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</Link>
+                        <a onClick={() => addToCard(product, 1)} className="btn btn-sm text-dark p-0"><i className="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                     </div>
                 </div>
             </div>

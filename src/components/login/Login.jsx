@@ -41,7 +41,7 @@ function LoginPage() {
       setEmail("")
       setPassword("")
 
-      navigate("/")
+      // navigate("/")
 
       // Redirect the user to another page or perform additional actions upon successful login
     } catch (error) {

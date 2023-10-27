@@ -1,61 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Footer from './Footer'
-import CartItem from './product/CartItem';
-import { UserContext } from "./Api/context/AppContext";
-import { useParams } from 'react-router-dom';
-// import { useFetchApi } from './Api/uesFatchapi';
-import axios from 'axios';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import Loader from './Loader';
-const Shop = () => {
-    
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-  
+import React from 'react'
+import { useContext } from 'react'
+import { UserContext } from '../Api/context/AppContext'
+import CartItem from './CartItem'
+import Footer from '../Footer'
+const Shopproduct = () => {
 
-    const { id } = useParams()
-
-    // const { data, loading } = useFetchApi(`http://143.244.142.0/api/v1/parts/fetch/parts/?part_category=${id}`)
-
-
-    const fetchData = async () => {
-
-        try {
-            const response = await axios.get(`http://143.244.142.0/api/v1/parts/fetch/parts/?part_category=${id}`);
-            setData(response.data.results);
-            setLoading(false);
-        } catch (err) {
-
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchData()
-    }, [id])
-
-
-    //  console.log(product,"________product")
-
-
-  
-
+    const { product } = useContext(UserContext)
     return (
         <>
             {/* <!-- Page Header Start --> */}
             <div class="container-fluid bg-secondary mb-5">
                 <div class="d-flex flex-column align-items-center justify-content-center" style={{ "min-height": "300px" }}>
-                    <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
+                    <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Product</h1>
                     <div class="d-inline-flex">
                         <p class="m-0"><a href="">Home</a></p>
                         <p class="m-0 px-2">-</p>
-                        <p class="m-0">Shop</p>
+                        <p class="m-0">Product</p>
                     </div>
                 </div>
             </div>
-            {/* <!-- Page Header End --> */}
 
-            {/* <!-- Shop Start --> */}
+
             <div class="container-fluid pt-5">
                 <div class="row px-xl-5">
                     {/* <!-- Shop Sidebar Start --> */}
@@ -209,29 +174,18 @@ const Shop = () => {
                             {/* Map through your product data and create product cards dynamically */}
 
 
+
                             {
-                                data ? (
-                                    <InfiniteScroll
-                                        dataLength={data.length}
-
-                                        hasMore={data.length < 500}
-                                        loader={  <Loader/>}
-                                        height={650}
-                                    >
-
-                                        <div className='d-flex flex-wrap'>
-                                            {data.map((product, index) => (
-                                                <CartItem product={product} key={index} />
-                                            ))}
-                                        </div>
+                                <div className='d-flex flex-wrap'>
+                                    {product?.map((product, index) => (
+                                        <CartItem product={product} key={index} />
+                                    ))}
+                                </div>
 
 
-                                    </InfiniteScroll >
 
-                                ) : (
-                                   <Loader/>
 
-                                )
+
                             }
 
 
@@ -291,4 +245,4 @@ const Shop = () => {
     )
 }
 
-export default Shop
+export default Shopproduct

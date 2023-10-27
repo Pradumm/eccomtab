@@ -1,5 +1,6 @@
 import React from 'react'
 import ProductCard from './ProductCard'
+
 const ProductContainer = ({ product, heading }) => {
 
     // console.log(product, "______________pro")
