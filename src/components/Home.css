@@ -1,0 +1,29 @@
+.col-lg-9.dev_slider {
+    position: absolute;
+    top: 190px;
+    right: 0;
+}
+
+.home_content {
+    position: absolute;
+    top: 80%;
+    left: 0;
+    right: 0;
+}
+
+@media only screen and (max-width: 1023px) and (min-width: 768px) {
+
+    .home_content {
+        position: absolute;
+        top: 52%;
+        left: 0;
+        right: 0;
+    }
+}
+
+.home_content {
+    position: absolute;
+    top: 85%;
+    left: 0;
+    right: 0;
+}
