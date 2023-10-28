@@ -8,10 +8,10 @@ import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loader from './Loader';
 const Shop = () => {
-    
+
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
-  
+
 
     const { id } = useParams()
 
@@ -38,7 +38,7 @@ const Shop = () => {
     //  console.log(product,"________product")
 
 
-  
+
 
     return (
         <>
@@ -209,28 +209,26 @@ const Shop = () => {
                             {/* Map through your product data and create product cards dynamically */}
 
 
+                           
+
+
                             {
-                                data ? (
+                                data && data.length > 0 ? (
                                     <InfiniteScroll
                                         dataLength={data.length}
-
                                         hasMore={data.length < 500}
-                                        loader={  <Loader/>}
-                                        height={650}
+                                        height={750}
                                     >
-
                                         <div className='d-flex flex-wrap'>
                                             {data.map((product, index) => (
                                                 <CartItem product={product} key={index} />
                                             ))}
                                         </div>
-
-
-                                    </InfiniteScroll >
-
+                                    </InfiniteScroll>
+                                ) : data && data.length === 0 ? (
+                                    <p className='text-center text-dark'>Data not found</p>
                                 ) : (
-                                   <Loader/>
-
+                                    <Loader />
                                 )
                             }
 
@@ -242,22 +240,7 @@ const Shop = () => {
 
 
 
-
-
-
-
-                            {/* {loading ? (
-                                <div>Loading...</div>
-                            ) : data.length > 0 ? (
-                                <div>
-                                    {data.map((product, index) => (
-                                        <CartItem product={product} key={index} />
-                                    ))}
-                                </div>
-                            ) : (
-                                <div>Data not found</div>
-                            )} */}
-
+                         
 
                             {/* <div class="col-12 pb-1">
                                 <nav aria-label="Page navigation">

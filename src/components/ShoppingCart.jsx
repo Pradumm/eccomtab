@@ -100,6 +100,7 @@ const ShoppingCart = () => {
                                     </table>
                                 </div>
 
+
                                 <div className="col-lg-4">
                                       {/* <CardSummery/> */}
                                 </div>

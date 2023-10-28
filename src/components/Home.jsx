@@ -8,17 +8,25 @@ import { Link } from "react-router-dom";
 import Footer from "./Footer";
 // import ProductCard from "../components/product/ProductCard";
 import { UserContext } from "./Api/context/AppContext";
+import Categorieslist from "./Categorieslist";
 
 import ProductContainer from "./product/ProductContainer";
 const Home = () => {
 
   const { cardItem, setCardItem, product, setProduct } = useContext(UserContext)
 
-  
+
   return (
     <>
-      <div className="col-lg-9 dev_slider">
-        <Slider />
+      <div className="container-fluid">
+        <div className="row">
+
+          <Categorieslist />
+
+          <div className="col-lg-9 ">
+            <Slider />
+          </div>
+        </div>
       </div>
 
       <div className="home_content">
@@ -163,7 +171,11 @@ const Home = () => {
         </section> */}
 
 
-        <ProductContainer heading="Popular Product" product={product} />
+        <div className="container-fluid pad">
+          <h1 className="head_prod">Popular Product</h1>
+          <ProductContainer product={product} />
+        </div>
+
 
 
         <section className="third_sec">

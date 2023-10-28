@@ -10758,16 +10758,7 @@ a.text-dark:focus {
 
 /* Add this CSS to your styles */
 @media (min-width: 992px) {
-  .fixed-nav-category {
-    position: absolute;
-    top: 131%;
-    bottom: 0;
-    left: 5%;
-    z-index: 1000;
-    /* overflow-y: scroll; */
-    width: 91%;
-  
-}
+
 .navbar-nav.w-100.overflow-hidden {
   background-color: #fff;
 }

@@ -1,14 +1,14 @@
 
-import React, { useState , useContext, } from 'react';
+import React, { useState, useContext, } from 'react';
 import axios from 'axios';
 import '../login/Login.css';
 import { UserContext } from '../Api/context/AppContext';
 import { useNavigate } from 'react-router-dom';
 function LoginPage() {
-  
-  const { tokenvalue, setTokenvalue } = useContext(UserContext)
-  
-  const  navigate = useNavigate()
+
+  const { autho, setautho ,setUser } = useContext(UserContext)
+
+  const navigate = useNavigate()
 
 
   const [email, setEmail] = useState('');
@@ -36,12 +36,15 @@ function LoginPage() {
       const response = await axios.post('http://143.244.142.0/api/v1/accounts/login', payload); // Adjust the API endpoint as needed
       console.log('Login successful', response.data);
       let token = response.data.data.auth_token.access
+      let user_id = response.data.data.user_id
       localStorage.setItem("token", token);
-      setTokenvalue(false) 
+      setautho(true)
+      localStorage.setItem("user", response.data.data.user_id);
+      setUser(user_id)
       setEmail("")
       setPassword("")
-
-      // navigate("/")
+      
+      navigate("/")
 
       // Redirect the user to another page or perform additional actions upon successful login
     } catch (error) {
@@ -50,7 +53,7 @@ function LoginPage() {
     }
   };
 
- 
+
 
   return (
     <div className="login-page">

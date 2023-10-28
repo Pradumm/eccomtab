@@ -1,13 +1,14 @@
 import React from 'react'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { UserContext } from '../Api/context/AppContext'
 
 const ProductCard = ({ item }) => {
 
-    // console.log(item, "_________-itm")
+    const { addToCard } = useContext(UserContext)
     return (
-        <Link
-            to={`/singleproduct/${item.part_number}`}
-        
+        <div
+
             className="col-lg-3 col-md-6 col-sm-12 pb-1"
         >
             <div className="card product-item border-0 mb-4">
@@ -30,17 +31,19 @@ const ProductCard = ({ item }) => {
                     </div>
                 </div>
                 <div className="card-footer d-flex justify-content-between bg-light border">
-                    <a href="" className="btn btn-sm text-dark p-0">
+                    <Link
+                        to={`/singleproduct/${item.part_number}`} className="btn btn-sm text-dark p-0">
                         <i className="fas fa-eye text-primary mr-1"></i>View
                         Detail
-                    </a>
-                    <a href="" className="btn btn-sm text-dark p-0">
+                    </Link>
+                    <a onClick={() => addToCard(item, 1)}
+                        className="btn btn-sm text-dark p-0">
                         <i className="fas fa-shopping-cart text-primary mr-1"></i>
                         Add To Cart
                     </a>
                 </div>
             </div>
-        </Link>
+        </div>
     )
 }
 

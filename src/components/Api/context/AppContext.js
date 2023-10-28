@@ -2,14 +2,17 @@ import React, { createContext, useState, useEffect } from 'react';
 
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+
 export const UserContext = createContext();
 
 const AppContext = ({ children }) => {
+
+
     const location = useLocation()
+    const [token, setToken] = useState(null);
 
-    const [tokenvalue, setTokenvalue] = useState(true);
-    const [autho, setautho] = useState(true);
-
+   
+    const [autho, setautho] = useState(false);
 
     // console.log(categories,"________categories")
     const [product, setProduct] = useState([])
@@ -112,18 +115,56 @@ const AppContext = ({ children }) => {
     // Load cart data from localStorage when the component mounts
     useEffect(() => {
         const savedCart = localStorage.getItem('shoppingCart');
+
+
         if (savedCart) {
             setCardItem(JSON.parse(savedCart));
         }
     }, []);
 
 
+    const [user, setUser] = useState(null);
 
+    // Check if the user is already logged in when the app loads
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(storedUser);
+        }
+    }, []);
+
+
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        setToken(storedToken);
+    }, []);
+
+    const handleLogout = () => {
+        axios
+            .post('http://143.244.142.0/api/v1/accounts/logout', null, {
+                headers: {
+                    Authorization: `JWT ${token}`,
+                },
+            })
+            .then((response) => {
+                console.log(response.data, "___________response");
+                localStorage.removeItem('user');
+                setUser(null);
+            })
+            .catch((error) => {
+                // Handle error, e.g., display an error message
+                console.error('Logout failed', error.response.data);
+            });
+    };
+
+
+    
+   
     console.log(cardItem, "---cardItem");
     return (
         <UserContext.Provider value={{
-            tokenvalue,
-            setTokenvalue,
+     
             product,
             setProduct,
             cardItem,
@@ -131,7 +172,13 @@ const AppContext = ({ children }) => {
             removeFromCard,
             handleQuantity,
             cardsubtotal,
-            cardCount
+            cardCount,
+            autho,
+            setautho,
+            handleLogout,
+            setUser,
+            user,
+            token
         }}>
             {children}
         </UserContext.Provider>

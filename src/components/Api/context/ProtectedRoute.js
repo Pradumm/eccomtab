@@ -1,19 +1,19 @@
-import React from 'react';
-import { Navigate, Route } from 'react-router-dom';
+
+
+
+// ProtectedRoute.js
+import React, { useContext } from 'react';
+import { Outlet, Navigate, Route } from 'react-router-dom';
+import { UserContext } from './AppContext';
 
 const ProtectedRoute = ({ element, ...rest }) => {
 
-    
-    // Implement your authentication logic here
-    // For example, you can check if the user is logged in or has a valid token.
-    const isAuthenticated =   true/* Your authentication logic here */
+    const { autho } = useContext(UserContext); // Replace with your authentication logic.
 
-    return isAuthenticated ? (
-        // User is authenticated, render the route
-        element
+    return autho ? (
+        <Outlet />
     ) : (
-        // User is not authenticated, redirect to the login page
-        <Navigate to="/login" />
+        <Navigate to="/login" replace={true} />
     );
 };
 

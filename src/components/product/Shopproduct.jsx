@@ -3,14 +3,18 @@ import { useContext } from 'react'
 import { UserContext } from '../Api/context/AppContext'
 import CartItem from './CartItem'
 import Footer from '../Footer'
+import Categorieslist from "../Categorieslist";
 const Shopproduct = () => {
 
     const { product } = useContext(UserContext)
     return (
         <>
             {/* <!-- Page Header Start --> */}
-            <div class="container-fluid bg-secondary mb-5">
-                <div class="d-flex flex-column align-items-center justify-content-center" style={{ "min-height": "300px" }}>
+            <div class="container-fluid">
+                <div className="row">
+                <Categorieslist />
+                    <div className="col-lg-9">
+                    <div class="d-flex flex-column align-items-center justify-content-center bg-secondary shop_baner">
                     <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Product</h1>
                     <div class="d-inline-flex">
                         <p class="m-0"><a href="">Home</a></p>
@@ -18,10 +22,13 @@ const Shopproduct = () => {
                         <p class="m-0">Product</p>
                     </div>
                 </div>
+                    </div>
+                </div>
+               
             </div>
 
 
-            <div class="container-fluid pt-5">
+            <div class="container-fluid pt-5 shop_prod">
                 <div class="row px-xl-5">
                     {/* <!-- Shop Sidebar Start --> */}
                     <div class="col-lg-3 col-md-12">

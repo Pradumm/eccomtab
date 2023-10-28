@@ -4,7 +4,7 @@ function Slider() {
   return (
     <div id="header-carousel" className="carousel slide" data-ride="carousel">
     <div className="carousel-inner">
-      <div className="carousel-item active" style={{ height: "410px" }}>
+      <div className="carousel-item active" style={{ height: "600px" }}>
         <img className="img-fluid" src="img/carousel-1.jpg" alt="Image" />
         <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
           <div className="p-3" style={{ maxWidth: "700px" }}>
@@ -14,7 +14,7 @@ function Slider() {
           </div>
         </div>
       </div>
-      <div className="carousel-item" style={{ height: "410px" }}>
+      <div className="carousel-item" style={{ height: "600px" }}>
         <img className="img-fluid" src="img/carousel-2.jpg" alt="Image" />
         <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
           <div className="p-3" style={{ maxWidth: "700px" }}>
