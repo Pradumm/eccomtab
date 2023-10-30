@@ -9,9 +9,8 @@ const AppContext = ({ children }) => {
 
 
     const location = useLocation()
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState(localStorage.getItem('token') || null);
 
-   
     const [autho, setautho] = useState(false);
 
     // console.log(categories,"________categories")
@@ -42,6 +41,18 @@ const AppContext = ({ children }) => {
     };
 
     useEffect(() => {
+        getdata();
+    }, [])
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (storedToken) {
+            setToken(storedToken);
+        }
+
+    }, [token]);
+
+    useEffect(() => {
         let count = 0;
         cardItem.map((item) => (count += item.quantity))
         setCardcount(count)
@@ -56,9 +67,9 @@ const AppContext = ({ children }) => {
 
     //  add to cart 
 
-    useEffect(() => {
-        getdata();
-    }, [])
+
+
+
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [location])
@@ -115,8 +126,6 @@ const AppContext = ({ children }) => {
     // Load cart data from localStorage when the component mounts
     useEffect(() => {
         const savedCart = localStorage.getItem('shoppingCart');
-
-
         if (savedCart) {
             setCardItem(JSON.parse(savedCart));
         }
@@ -135,10 +144,8 @@ const AppContext = ({ children }) => {
 
 
 
-    useEffect(() => {
-        const storedToken = localStorage.getItem('token');
-        setToken(storedToken);
-    }, []);
+
+
 
     const handleLogout = () => {
         axios
@@ -149,7 +156,9 @@ const AppContext = ({ children }) => {
             })
             .then((response) => {
                 console.log(response.data, "___________response");
+                localStorage.removeItem('token');
                 localStorage.removeItem('user');
+                setToken(null)
                 setUser(null);
             })
             .catch((error) => {
@@ -159,12 +168,12 @@ const AppContext = ({ children }) => {
     };
 
 
-    
-   
+
+
     console.log(cardItem, "---cardItem");
     return (
         <UserContext.Provider value={{
-     
+
             product,
             setProduct,
             cardItem,
@@ -178,7 +187,9 @@ const AppContext = ({ children }) => {
             handleLogout,
             setUser,
             user,
-            token
+            token,
+            setToken,
+            setautho
         }}>
             {children}
         </UserContext.Provider>

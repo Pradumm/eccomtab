@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Footer from './Footer'
 import { UserContext } from './Api/context/AppContext';
-// import CardSummery from './CardSummery';
+import CardSummery from './CardSummery';
 
 
 
@@ -11,9 +11,6 @@ const ShoppingCart = () => {
     // Define your product data and cart summary here
 
     const { cardItem, removeFromCard, handleQuantity, cardsubtotal } = useContext(UserContext)
-
-    
-
 
 
 
@@ -102,7 +99,7 @@ const ShoppingCart = () => {
 
 
                                 <div className="col-lg-4">
-                                      {/* <CardSummery/> */}
+                                    <CardSummery />
                                 </div>
                             </div>
                         </div>

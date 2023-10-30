@@ -19,7 +19,7 @@ const ProductCard = ({ item }) => {
                         alt=""
                     />
                 </div>
-                <div className="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                <Link to={`/singleproduct/${item.part_number}`} className="card-body border-left border-right text-center p-0 pt-4 pb-3">
                     <h6 className="text-truncate mb-3">
                         {item.short_description}
                     </h6>
@@ -29,7 +29,7 @@ const ProductCard = ({ item }) => {
                             {/* <del>${discountPrice.toFixed(2)}</del> */}
                         </h6>
                     </div>
-                </div>
+                </Link>
                 <div className="card-footer d-flex justify-content-between bg-light border">
                     <Link
                         to={`/singleproduct/${item.part_number}`} className="btn btn-sm text-dark p-0">

@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import "./Register.css"
 
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
 
-
+ 
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
@@ -16,6 +17,7 @@ function RegisterPage() {
   const [organizations, setOrganizations] = useState([]);
   const [error, setError] = useState('');
 
+   const navigate =useNavigate()
   useEffect(() => {
     getOrganizations();
   }, []);
@@ -69,20 +71,20 @@ function RegisterPage() {
       console.log('respo ____oxd', response.data);
       // Check if the registration was successful based on the API response
       if (response.data) {
-          console.log('Registration successful', response.data);
-          // let token  = response.data.token.access
-          // localStorage.setItem("token", token);
-          // navigate("/emailVerification")      
+        console.log('Registration successful', response.data);
+        // let token  = response.data.token.access
+        // localStorage.setItem("token", token);
+        navigate("/login")      
       } else {
-          setError('Registration failed. Please check your data.');
+        setError('Registration failed. Please check your data.');
       }
-  } catch (error) {
+    } catch (error) {
 
       const errormsg = error.response.data
 
       setError(errormsg);
       console.error('Registration failed:', errormsg);
-  }
+    }
   };
 
   return (
@@ -125,7 +127,7 @@ function RegisterPage() {
               placeholder="me@example.com"
               className="register-input"
             />
-             {error && <p className="register-error">{error.email}</p>}
+            {error && <p className="register-error">{error.email}</p>}
           </div>
           <div className="input-group">
             <label className="register-label">Mobile</label>
@@ -150,7 +152,7 @@ function RegisterPage() {
               placeholder="••••••••••"
               className="register-input"
             />
-             {error && <p className="register-error">{error.password}</p>}
+            {error && <p className="register-error">{error.password}</p>}
           </div>
           <div className="input-group">
             <select value={selectedOrg} onChange={(e) => handleSelectOrg(e.target.value)}>
@@ -164,7 +166,10 @@ function RegisterPage() {
             {error && <p className="register-error">{error.email}</p>}
           </div>
           <button type="submit" className="register-button">Register</button>
-         
+          <p className='reg_log'>Already have an account? <Link to="/login">Sign in</Link></p>
+
+
+
         </form>
       </div>
     </div>

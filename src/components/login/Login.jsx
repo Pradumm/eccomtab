@@ -6,7 +6,7 @@ import { UserContext } from '../Api/context/AppContext';
 import { useNavigate } from 'react-router-dom';
 function LoginPage() {
 
-  const { autho, setautho ,setUser } = useContext(UserContext)
+  const { autho, setautho ,setUser , setToken} = useContext(UserContext)
 
   const navigate = useNavigate()
 
@@ -37,9 +37,12 @@ function LoginPage() {
       console.log('Login successful', response.data);
       let token = response.data.data.auth_token.access
       let user_id = response.data.data.user_id
+      
       localStorage.setItem("token", token);
+      setToken(token)
       setautho(true)
       localStorage.setItem("user", response.data.data.user_id);
+    
       setUser(user_id)
       setEmail("")
       setPassword("")

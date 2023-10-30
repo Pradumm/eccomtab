@@ -78,7 +78,7 @@ function Header() {
                             <i className="fas fa-heart text-primary"></i>
                             <span className="badge">0</span>
                         </Link>
-                        <Link to="/cart" className="btn border">
+                        <Link to="/user/cart" className="btn border">
                             <i className="fas fa-shopping-cart text-primary"></i>
                             {!!cardCount && (<span className="badge">{cardCount}</span>)}
                         </Link>

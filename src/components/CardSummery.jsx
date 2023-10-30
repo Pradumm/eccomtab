@@ -1,44 +1,17 @@
 import React, { useContext } from 'react';
 import { UserContext } from './Api/context/AppContext';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
+
 import axios from 'axios';
 
-const stripePromise = loadStripe('your_stripe_api_key'); // Replace with your actual Stripe API key
+
 
 const CardSummary = () => {
     const { cardsubtotal, cardItem } = useContext(UserContext);
-    const stripe = useStripe();
-    const elements = useElements();
+    
+    const handleSubmit =()=>{
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        if (!stripe || !elements) {
-            return;
-        }
-
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: elements.getElement(CardElement),
-        });
-
-        if (error) {
-            // Handle payment method creation error
-        } else {
-            // Send paymentMethod.id to your server for further processing
-            const response = await axios.post('/your-server-endpoint', {
-                paymentMethodId: paymentMethod.id,
-                cartItems: cardItem, // Include cart items if needed
-            });
-
-            if (response.data.success) {
-                // Payment successful, you can redirect the user to a thank you page
-            } else {
-                // Payment failed, handle the failure accordingly
-            }
-        }
-    };
+    }
 
     return (
         <>

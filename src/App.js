@@ -1,6 +1,6 @@
 
-import React, { useContext } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import {  Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 // import Navbar from './components/Navbar';
 import Shop from './components/Shop';
@@ -22,13 +22,27 @@ import Shopproduct from './components/product/Shopproduct';
 
 import AppContext from './components/Api/context/AppContext';
 import OrderContainer from './components/orders/OrderContainer';
+
 // import OrderSingledata from './components/orders/OrderSingledata';
+
+
 function App() {
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   // Check if the user has visited before
+  //   const hasVisitedBefore = !!localStorage.getItem('token');
+
+  //   if (!hasVisitedBefore) {
+  //     // Redirect the user to the registration page
+  //     navigate('/register');
+  //   }
+  // }, [navigate]);
 
 
   return (
     <>
-      <BrowserRouter>
+
         <AppContext>
           <Header />
           <Routes>
@@ -37,25 +51,26 @@ function App() {
             <Route path='/singleproduct/:id' element={<SingleProduct />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/checkout' element={<Checkout />} />
-            <Route path='/Register' element={<Register />} />
+
             <Route path='/product' element={<Shopproduct />} />
 
             <Route path='/org-address' element={<YourComponent />} />
 
-            <Route path='/login' element={<LoginPage />} />
-            <Route path="/cart" element={<ShoppingCart />} />
+
+            {/* <Route path="/cart" element={<ShoppingCart />} /> */}
 
             {/* <ProtectedRoute path="/cart" element={<ShoppingCart />} /> */}
-
-            <Route path="/cart" element={<ProtectedRoute />}>
-              <Route index element={<ShoppingCart />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/user" element={<ProtectedRoute />}>
+              <Route path="cart" element={<ShoppingCart />} />
+              {/* Add more routes for user-related pages like "profile" here */}
             </Route>
-
-            <Route path='/order' element ={<OrderContainer/>}/>
+            <Route path='/order' element={<OrderContainer />} />
           </Routes>
           {/* <Footer /> */}
         </AppContext>
-      </BrowserRouter>
+      
 
     </>
   );

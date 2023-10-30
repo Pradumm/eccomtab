@@ -12,7 +12,7 @@ function Categorieslist() {
     <a
         className="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" 
         
-        href="#navbar-vertical"
+        // href="#navbar-vertical"
         style={{ height: "65px", marginTop: "-1px", padding: "0 30px" }}
     >
         <h6 className="m-0">Categories</h6>
