@@ -49,7 +49,7 @@ const ShoppingCart = () => {
                             <div className="row px-xl-5">
 
 
-                                <div className="col-lg-8 table-responsive mb-5">
+                                <div className="col-lg-8 table-responsivee mb-5">
                                     <table className="table table-bordered text-center mb-0">
                                         <thead className="bg-secondary text-dark">
                                             <tr>
@@ -70,22 +70,22 @@ const ShoppingCart = () => {
                                                         <td className="align-middle">
                                                             <img src="" alt="" style={{ width: '50px' }} />
                                                         </td>
-                                                        <td className="align-middle">${product.mrp}</td>
+                                                        <td className="align-middle"> {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(product.mrp)}</td>
                                                         <td className="align-middle">
-                                                            <div className="input-group quantity mx-auto" style={{ width: '100px' }}>
+                                                            <div className="input-group quantity mx-auto" style={{ width: '150px' }}>
                                                                 {/* You can add quantity input and logic here */}
 
                                                                 <button className="btn btn-primary btn-minus" onClick={() => handleQuantity("dec", product)}>
                                                                     <i className="fa fa-minus"></i>
                                                                 </button>
 
-                                                                <span className='' style={{ width: "15px", }}>  {product.quantity}</span>
+                                                                <span className='bg-secondary shop_add' style={{ width: "50px", }}>  {product.quantity}</span>
                                                                 <button className="btn btn-primary btn-plus" onClick={() => handleQuantity("inc", product)}>
                                                                     <i className="fa fa-plus"></i>
                                                                 </button>
                                                             </div>
                                                         </td>
-                                                        <td className="align-middle">{(product.mrp) * (product.quantity)}</td>
+                                                        <td className="align-middle">        {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format((product.mrp) * (product.quantity))}</td>
                                                         <td className="align-middle">
                                                             <button className="btn btn-sm btn-primary" onClick={() => removeFromCard(product.id)}><i className="fa fa-times"></i></button>
                                                         </td>

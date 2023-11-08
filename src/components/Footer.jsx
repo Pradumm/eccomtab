@@ -1,17 +1,56 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from 'react-router-dom'
+import axios from "axios";
+import { UserContext } from "./Api/context/AppContext";
 
 const Footer = () => {
+
+    const { user, cardCount, handleLogout } = useContext(UserContext);
+  const [logo, setLogo] = useState("img/logo-removebg-preview.png"); 
+
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const userNameAmit = localStorage.getItem("emailData");
+    const UserPassword = localStorage.getItem("PasswordAmit");
+
+    console.log("user", userNameAmit);
+    console.log("password", UserPassword);
+
+    if (user) {
+      axios
+        .post("http://143.244.142.0/api/v1/accounts/login", {
+          username: userNameAmit,
+          password: UserPassword,
+        })
+        .then((response) => {
+          const { data } = response;
+          if (data && data.success) {
+            const organization = data.data.org;
+            if (organization && organization.logo) {
+              setLogo(`http://143.244.142.0${organization.logo}`); // Set the logo URL dynamically after successful login
+            }
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching login data:", error);
+        });
+    }
+
+   
+  }, [user]);
+
     return (
         <>
             {/* <!-- Footer Start --> */}
             <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
                 <div class="row px-xl-5 pt-5">
                     <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-                        <a href="" class="text-decoration-none">
-                            {<img className='logo_head' src="img/logo-removebg-preview.png" alt="" />}
-                        </a>
-                        <p className='pt-5'>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
+                    <Link to="/home/main" class="text-decoration-none">
+                            { <img className="logo_head" src={logo} alt="No Img" />}
+                        </Link>
+                        <p className='pt-2'>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
 
                     </div>
                     <div class="col-lg-8 col-md-12">
@@ -19,23 +58,21 @@ const Footer = () => {
                             <div class="col-md-4 mb-5">
                                 <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
                                 <div class="d-flex flex-column justify-content-start">
-                                    <Link class="text-dark mb-2" to="/"><i class="fa fa-angle-right mr-2"></i>Home</Link>
-                                    <Link class="text-dark mb-2" to="/shop"><i class="fa fa-angle-right mr-2"></i>Our Shop</Link>
-                                    <Link class="text-dark mb-2" to="/singleproduct"><i class="fa fa-angle-right mr-2"></i>Shop Detail</Link>
+                                    <Link class="text-dark mb-2" to="/home/main"><i class="fa fa-angle-right mr-2"></i>Home</Link>
+                                    <Link class="text-dark mb-2" to="/contact"><i class="fa fa-angle-right mr-2"></i>Contact Us</Link>
+                                    <Link class="text-dark mb-2" to="/home/main"><i class="fa fa-angle-right mr-2"></i>Product</Link>
+                                    {/* <Link class="text-dark mb-2" to="/singleproduct"><i class="fa fa-angle-right mr-2"></i>Shop Detail</Link>
                                     <Link class="text-dark mb-2" to="/shoppingCart"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</Link>
                                     <Link class="text-dark mb-2" to="/checkout"><i class="fa fa-angle-right mr-2"></i>Checkout</Link>
-                                    <Link class="text-dark" to="/contact"><i class="fa fa-angle-right mr-2"></i>Contact Us</Link>
+                                    <Link class="text-dark" to="/contact"><i class="fa fa-angle-right mr-2"></i>Contact Us</Link> */}
                                 </div>
                             </div>
                             <div class="col-md-4 mb-5">
                                 <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
                                 <div class="d-flex flex-column justify-content-start">
-                                    <Link class="text-dark mb-2" to="/"><i class="fa fa-angle-right mr-2"></i>BillingAddress</Link>
-                                    <Link class="text-dark mb-2" to="/shop"><i class="fa fa-angle-right mr-2"></i>Our Shop</Link>
-                                    <Link class="text-dark mb-2" to="/singleproduct"><i class="fa fa-angle-right mr-2"></i>Shop Detail</Link>
-                                    <Link class="text-dark mb-2" to="/shoppingCart"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</Link>
-                                    <Link class="text-dark mb-2" to="/checkout"><i class="fa fa-angle-right mr-2"></i>Checkout</Link>
-                                    <Link class="text-dark" to="/contact"><i class="fa fa-angle-right mr-2"></i>Contact Us</Link>
+                                <Link class="text-dark mb-2" to="/home/main"><i class="fa fa-angle-right mr-2"></i>Home</Link>
+                                    <Link class="text-dark mb-2" to="/contact"><i class="fa fa-angle-right mr-2"></i>Contact Us</Link>
+                                    <Link class="text-dark mb-2" to="/home/main"><i class="fa fa-angle-right mr-2"></i>Product</Link>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-5">

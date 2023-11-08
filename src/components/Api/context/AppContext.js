@@ -1,56 +1,45 @@
 import React, { createContext, useState, useEffect } from 'react';
 
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useFetchApi } from '../uesFatchapi';
 export const UserContext = createContext();
 
 const AppContext = ({ children }) => {
 
+     const[userd,setuserd]= useState({
+         email:"",
+         pass:""
+
+     })
+
+     console.log(userd,"_________user found")
+
 
     const location = useLocation()
+    const navigate = useNavigate()
     const [token, setToken] = useState(localStorage.getItem('token') || null);
+
 
     const [autho, setautho] = useState(false);
 
     // console.log(categories,"________categories")
-    const [product, setProduct] = useState([])
-
+  
     const [cardItem, setCardItem] = useState([]);
     const [cardsubtotal, setcardsubtotal] = useState(0);
     const [cardCount, setCardcount] = useState(0)
 
-
-    const getdata = async () => {
-        const apiUrl =
-            "http://143.244.142.0/api/v1/parts/fetch/parts/?market_place=enata-automotive"; // Replace with your actual API endpoint.
-
-        await axios
-            .get(apiUrl)
-            .then((response) => {
-                console.log(response.data.results, "-------market");
-
-                setProduct(response.data.results)
-                // setCategories(response.data.results[0].sub_category);
-
-                // Assuming the API returns an array of product data.
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
-    };
-
-    useEffect(() => {
-        getdata();
-    }, [])
+     
+       
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         if (storedToken) {
             setToken(storedToken);
         }
-
     }, [token]);
+
+
 
     useEffect(() => {
         let count = 0;
@@ -142,11 +131,7 @@ const AppContext = ({ children }) => {
         }
     }, []);
 
-
-
-
-
-
+    
     const handleLogout = () => {
         axios
             .post('http://143.244.142.0/api/v1/accounts/logout', null, {
@@ -157,9 +142,16 @@ const AppContext = ({ children }) => {
             .then((response) => {
                 console.log(response.data, "___________response");
                 localStorage.removeItem('token');
-                localStorage.removeItem('user');
+                localStorage.removeItem('user')
+                localStorage.removeItem('make');
+
                 setToken(null)
                 setUser(null);
+
+
+
+                navigate("/login")
+
             })
             .catch((error) => {
                 // Handle error, e.g., display an error message
@@ -174,8 +166,8 @@ const AppContext = ({ children }) => {
     return (
         <UserContext.Provider value={{
 
-            product,
-            setProduct,
+            // product,
+            // setProduct,
             cardItem,
             addToCard,
             removeFromCard,
@@ -189,7 +181,14 @@ const AppContext = ({ children }) => {
             user,
             token,
             setToken,
-            setautho
+            setautho,
+            userd,
+            setuserd
+
+
+
+
+
         }}>
             {children}
         </UserContext.Provider>

@@ -91,6 +91,52 @@ p {
   margin-bottom: 1rem;
 }
 
+.user_icon {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+a.dropdown-item.sub_cat {
+  padding: 10px 0px 0 100px;
+}
+a:active{
+  color: #000;
+}
+
+.shop_add {
+  padding: 5px 0;
+}
+
+.dropdown-item:hover {
+  background-color: #fff !important;
+}
+
+/* .dropdown-menu {
+
+  border-bottom: 1px solid #edf1ff !important;
+  border: none !important;
+ 
+} */
+
+.icon_logout {
+  justify-content: end;
+}
+
+.top_route {
+  text-align: center;
+  padding: 20px 0;
+  color: #000;
+}
+
+a.btn_top {
+  font-size: 18px;
+  color: #000;
+}
+
+a.btn_top:hover {
+  text-decoration: none;
+}
+
 abbr[title],
 abbr[data-original-title] {
   text-decoration: underline;
@@ -1458,7 +1504,7 @@ pre code {
 
   .col-lg-4 {
     flex: 0 0 33.33333%;
-    max-width: 33.33333%;
+    max-width: 100%;
   }
 
   .col-lg-5 {
@@ -2129,6 +2175,14 @@ pre code {
 
   .table-responsive-md>.table-bordered {
     border: 0;
+  }
+
+  .icon_logout {
+    justify-content: center;
+  }
+
+  .logo_css_mob {
+    justify-content: center;
   }
 }
 
@@ -3443,7 +3497,7 @@ input[type="button"].btn-block {
   list-style: none;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: none;
 }
 
 .dropdown-menu-left {
@@ -4431,7 +4485,7 @@ input[type="button"].btn-block {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 0.5rem 1rem;
 }
 
@@ -10759,25 +10813,32 @@ a.text-dark:focus {
 /* Add this CSS to your styles */
 @media (min-width: 992px) {
 
-.navbar-nav.w-100.overflow-hidden {
-  background-color: #fff;
-}
+  .navbar-nav.w-100.overflow-hidden {
+    background-color: #fff;
+  }
 }
 
 /* This CSS will make the content push to the right of the fixed navigation bar */
 @media (min-width: 992px) {
- 
+
+  .col-lg-4 {
+    flex: 0 0 33.33333%;
+    /* max-width: 90.33333%; */
+    width: 300px;
+  }
 }
 
-.logo_head{
-  width: 230px;
+.logo_head {
+  width: 220px;
+  height: 80px;
 }
 
 
-.product_desk{
+.product_desk {
   display: flex;
   flex-wrap: wrap;
 }
+
 .nav-item.dropdown {
   background-color: #fff;
   z-index: 999;

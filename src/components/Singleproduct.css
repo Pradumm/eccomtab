@@ -1,0 +1,15 @@
+.info ul {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+}
+
+.info li{
+    padding: 0 20px;
+    font-size: 18px;
+}
+
+.add_bor {
+    border: none;
+    width: 100px;
+}

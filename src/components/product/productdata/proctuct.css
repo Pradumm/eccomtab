@@ -1,0 +1,35 @@
+.cat-nav {
+    color: #1C1C1C;
+}
+
+
+
+/* .img-contain {
+    width: 246px !important;
+    height: 246px !important;
+} */
+
+.cart_contain{
+    text-align: center;
+}
+
+.dev_list_alig {
+    align-items: center;
+}
+ 
+.dev_list .border-right {
+    border-right: none !important;
+    border-left: none !important;
+}
+
+.dev_list .border {
+    border:none !important;
+}
+
+.cat-item:hover .cat-img img, .product-item:hover .product-img img {
+    transform: none;
+}
+
+.infinite-scroll-component__outerdiv {
+    width: 100%;
+}

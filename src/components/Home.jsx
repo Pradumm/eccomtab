@@ -4,27 +4,65 @@ import Owlslider from "./Owlslider";
 import Slider from "./Slider";
 import "../components/Home.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+
 import Footer from "./Footer";
 // import ProductCard from "../components/product/ProductCard";
-import { UserContext } from "./Api/context/AppContext";
+
 import Categorieslist from "./Categorieslist";
 
 import ProductContainer from "./product/ProductContainer";
+import { useFetchApi } from "./Api/uesFatchapi";
+import { UserContext } from "./Api/context/AppContext";
+import offer1 from "../components/assets/offer-1.png"
+import offer2 from "../components/assets/offer-2.png"
+
 const Home = () => {
 
-  const { cardItem, setCardItem, product, setProduct } = useContext(UserContext)
+  
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [features, setFeatures] = useState([]); // State for features
+  const [marketBanner, setMarketBanner] = useState([]); // State for marketBanner
 
+
+
+
+  useEffect(() => {
+    // Get the user's name from local storage
+    const storedUserName = localStorage.getItem('make') 
+    // Define the URL of the API you want to fetch data from using the 'userName'
+    const apiUrl = `http://143.244.142.0/api/v1/pipo/get/marketplace/list/?marketplace_name=${storedUserName}`
+    // Make a GET request using Axios
+    axios.get(apiUrl)
+      .then((response) => {
+        let result=  response.data.results
+        // console.log(response.data, "---------result sa");
+        
+        // Assuming the response contains an array of data
+        setData(response.data.results);
+        const foundFeatures = result[0].marketplace_hotproducts || [];
+         setFeatures(foundFeatures);
+           const foundMarketBanner = result[0].marketplace_banner || [];
+          setMarketBanner(foundMarketBanner);
+          
+          
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <>
       <div className="container-fluid">
         <div className="row">
 
-          <Categorieslist />
+          <Categorieslist   />
 
           <div className="col-lg-9 ">
-            <Slider />
+            <Slider marketbenner={marketBanner} />
           </div>
         </div>
       </div>
@@ -172,18 +210,17 @@ const Home = () => {
 
 
         <div className="container-fluid pad">
-          <h1 className="head_prod">Popular Product</h1>
-          <ProductContainer product={product} />
+          {/* <ProductContainer product={features} /> */}
+          <h1 className="head_prod">Featured Product</h1>
+          <ProductContainer product={features} />
         </div>
-
-
 
         <section className="third_sec">
           <div className="container-fluid offer pt-5">
             <div className="row px-xl-5">
               <div className="col-md-6 pb-4">
                 <div className="position-relative  bg-primary text-center text-md-right text-white mb-2 py-5 px-5">
-                  <img src="img/offer-1.png" alt="" />
+                  <img src={offer1} alt="" />
                   <div className="position-relative" style={{ "z-index": 1 }}>
                     <h5 className="text-uppercase text-secondary mb-3">
                       20% off the all order
@@ -202,7 +239,7 @@ const Home = () => {
               </div>
               <div className="col-md-6 pb-4">
                 <div className="position-relative bg-primary text-center text-md-left text-white mb-2 py-5 px-5">
-                  <img src="img/offer-2.png" alt="" />
+                  <img src={offer2} alt="" />
                   <div className="position-relative" style={{ "z-index": 1 }}>
                     <h5 className="text-uppercase text-secondary mb-3">
                       20% off the all order
@@ -222,10 +259,6 @@ const Home = () => {
             </div>
           </div>
         </section>
-
-
-
-
 
         <section className="fourth_sec">
           <div className="container-fluid bg-secondary my-5">
