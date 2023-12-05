@@ -84,6 +84,7 @@ p.reg_log {
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
+<<<<<<< HEAD
 }
 
 @media only screen and (max-width: 767px) and (min-width: 280px)  {
@@ -114,3 +115,6 @@ p.reg_log {
       padding: 50px 100px;
     }
     }
+=======
+}
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057

@@ -5,11 +5,22 @@ import "../components/Home.css";
 import axios from "axios";
 
 import Footer from "./Footer";
+<<<<<<< HEAD
 
+=======
+// import ProductCard from "../components/product/ProductCard";
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 
 import Categorieslist from "./Categorieslist";
 
 import ProductContainer from "./product/ProductContainer";
+<<<<<<< HEAD
+=======
+import { useFetchApi } from "./Api/uesFatchapi";
+import { UserContext } from "./Api/context/AppContext";
+import offer1 from "../components/assets/offer-1.png"
+import offer2 from "../components/assets/offer-2.png"
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -17,6 +28,7 @@ const Home = () => {
   const [features, setFeatures] = useState([]); // State for features
   const [marketBanner, setMarketBanner] = useState([]); // State for marketBanner
 
+<<<<<<< HEAD
   useEffect(() => {
     // Get the user's name from local storage
     const storedUserName = localStorage.getItem("make");
@@ -31,6 +43,13 @@ const Home = () => {
         setFeatures(foundFeatures);
         const foundMarketBanner = result[0].marketplace_banner || [];
         setMarketBanner(foundMarketBanner);
+=======
+  
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [features, setFeatures] = useState([]); // State for features
+  const [marketBanner, setMarketBanner] = useState([]); // State for marketBanner
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 
         setLoading(false);
       })
@@ -40,11 +59,45 @@ const Home = () => {
       });
   }, []);
 
+
+
+  useEffect(() => {
+    // Get the user's name from local storage
+    const storedUserName = localStorage.getItem('make') 
+    // Define the URL of the API you want to fetch data from using the 'userName'
+    const apiUrl = `http://143.244.142.0/api/v1/pipo/get/marketplace/list/?marketplace_name=${storedUserName}`
+    // Make a GET request using Axios
+    axios.get(apiUrl)
+      .then((response) => {
+        let result=  response.data.results
+        // console.log(response.data, "---------result sa");
+        
+        // Assuming the response contains an array of data
+        setData(response.data.results);
+        const foundFeatures = result[0].marketplace_hotproducts || [];
+         setFeatures(foundFeatures);
+           const foundMarketBanner = result[0].marketplace_banner || [];
+          setMarketBanner(foundMarketBanner);
+          
+          
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <>
       <div className="container-fluid">
         <div className="row">
+<<<<<<< HEAD
           <Categorieslist />
+=======
+
+          <Categorieslist   />
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 
           <div className="col-lg-9 ">
             <Slider marketbenner={marketBanner} />
@@ -101,6 +154,90 @@ const Home = () => {
           <h1 className="head_prod">Featured Product</h1>
           <ProductContainer product={features} />
         </div>
+<<<<<<< HEAD
+=======
+
+        <section className="third_sec">
+          <div className="container-fluid offer pt-5">
+            <div className="row px-xl-5">
+              <div className="col-md-6 pb-4">
+                <div className="position-relative  bg-primary text-center text-md-right text-white mb-2 py-5 px-5">
+                  <img src={offer1} alt="" />
+                  <div className="position-relative" style={{ "z-index": 1 }}>
+                    <h5 className="text-uppercase text-secondary mb-3">
+                      20% off the all order
+                    </h5>
+                    <h1 className="mb-4 font-weight-semi-bold">
+                      Spring Collection
+                    </h1>
+                    <a
+                      href=""
+                      className="btn btn-outline-secondary py-md-2 px-md-3"
+                    >
+                      Shop Now
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6 pb-4">
+                <div className="position-relative bg-primary text-center text-md-left text-white mb-2 py-5 px-5">
+                  <img src={offer2} alt="" />
+                  <div className="position-relative" style={{ "z-index": 1 }}>
+                    <h5 className="text-uppercase text-secondary mb-3">
+                      20% off the all order
+                    </h5>
+                    <h1 className="mb-4 font-weight-semi-bold">
+                      Winter Collection
+                    </h1>
+                    <a
+                      href=""
+                      className="btn btn-outline-secondary py-md-2 px-md-3"
+                    >
+                      Shop Now
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="fourth_sec">
+          <div className="container-fluid bg-secondary my-5">
+            <div className="row justify-content-md-center py-5 px-xl-5">
+              <div className="col-md-6 col-12 py-5">
+                <div className="text-center mb-2 pb-2">
+                  <h2 className="section-title px-5 mb-3">
+                    <span className="bg-secondary px-2">Stay Updated</span>
+                  </h2>
+                  <p>
+                    Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet
+                    diam labore at justo ipsum eirmod duo labore labore.
+                  </p>
+                </div>
+                <form action="">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control border-white p-4"
+                      placeholder="Email Goes Here"
+                    />
+                    <div className="input-group-append">
+                      <button className=" mybtn px-4">Subscribe</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* <ProductCard  itemProctitem={productlist} /> */}
+
+
+        <Owlslider />
+
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
         <Footer />
       </div>
     </>

@@ -10,7 +10,12 @@ function CategoLink({ data }) {
             </div>
         );
     }
+<<<<<<< HEAD
     const uniqueCategories = {}; 
+=======
+
+    const uniqueCategories = {}; // Use an object to track unique categories
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 
     return (
         <nav className="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 fixed-nav-category" id="navbar-vertical">
@@ -25,6 +30,10 @@ function CategoLink({ data }) {
                                      <i className="fa fa-angle-down float-right mt-1"></i>
                                 </a>
                                 <div className="dropdown-menu" style={{ maxHeight: "200px", overflowY: "auto" }}>
+<<<<<<< HEAD
+=======
+                                    {/* {/ Filter subcategories for the current category /} */}
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
                                     {data.map((subCategory, subIndex) => {
                                         if (
                                             subCategory.part_category.name === category.part_category.name &&
@@ -33,7 +42,11 @@ function CategoLink({ data }) {
                                             uniqueCategories[subCategory.sub_category.name] = true;
                                             return (
                                                 <Link
+<<<<<<< HEAD
                                                     to={`/home/categories/${category.part_category.name.replace(/ /g, '-')}/${subCategory.sub_category.name.replace(/ /g, '-')}/${subCategory.sub_category.id}`}
+=======
+                                                    to={`/categories/${category.part_category.name.replace(/ /g, '-')}/${subCategory.sub_category.name.replace(/ /g, '-')}/${subCategory.sub_category.id}`}
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
                                                     className="dropdown-item sub_cat"
                                                     key={subIndex}
                                                 >
@@ -41,7 +54,11 @@ function CategoLink({ data }) {
                                                 </Link>
                                             );
                                         }
+<<<<<<< HEAD
                                         return null; 
+=======
+                                        return null; // Render nothing if the subcategory name doesn't match
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
                                     })}
                                 </div>
                             </div>

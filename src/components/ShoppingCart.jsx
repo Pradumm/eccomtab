@@ -192,14 +192,32 @@ const ShoppingCart = () => {
 
       console.log("Item quantity updated:", response.data);
 
+<<<<<<< HEAD
       queryClient.invalidateQueries(["userList-data"]);
     } catch (error) {
       console.error("Error updating item quantity:", error);
     }
   };
+=======
+                                <div className="col-lg-8 table-responsivee mb-5">
+                                    <table className="table table-bordered text-center mb-0">
+                                        <thead className="bg-secondary text-dark">
+                                            <tr>
+                                                <th>Products</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Total</th>
+                                                <th>Remove</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="align-middle">
+                                            {
+                                                cardItem.map((product, index) =>
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 
   //  order form summit
 
+<<<<<<< HEAD
   const handleSubmit = async () => {
     const marketplace_nameId = localStorage.getItem("make");
     try {
@@ -209,6 +227,16 @@ const ShoppingCart = () => {
       );
       console.log("Success:", response.data);
       const orderId = response.data.id;
+=======
+                                                    <tr key={index}>
+                                                        <td className="align-middle">
+                                                            <img src="" alt="" style={{ width: '50px' }} />
+                                                        </td>
+                                                        <td className="align-middle"> {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(product.mrp)}</td>
+                                                        <td className="align-middle">
+                                                            <div className="input-group quantity mx-auto" style={{ width: '150px' }}>
+                                                                {/* You can add quantity input and logic here */}
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 
       setOrderCreated(orderId);
       await addOrderParts(orderId, response.data.order_id, marketplace_nameId);
@@ -234,6 +262,7 @@ const ShoppingCart = () => {
     }
   };
 
+<<<<<<< HEAD
   const addOrderParts = async (
     orderId,
     response_order_id,
@@ -252,6 +281,21 @@ const ShoppingCart = () => {
         total_payable: Math.ceil(getPrice(item) * item.qty), // Round and then convert to integer
         user: item.user.id,
       }));
+=======
+                                                                <span className='bg-secondary shop_add' style={{ width: "50px", }}>  {product.quantity}</span>
+                                                                <button className="btn btn-primary btn-plus" onClick={() => handleQuantity("inc", product)}>
+                                                                    <i className="fa fa-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                        <td className="align-middle">        {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format((product.mrp) * (product.quantity))}</td>
+                                                        <td className="align-middle">
+                                                            <button className="btn btn-sm btn-primary" onClick={() => removeFromCard(product.id)}><i className="fa fa-times"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            }
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 
       // console.log(itemlist, '_______ itemlist itemlist');
 

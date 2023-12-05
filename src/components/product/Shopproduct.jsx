@@ -8,6 +8,7 @@ import Loader from '../Loader';
 import { AiOutlineMenu, AiOutlineAppstore } from "react-icons/ai"
 
 const Shopproduct = () => {
+<<<<<<< HEAD
     const { product, loading } = useContext(UserContext);
     const subcat = [...new Set(product.map((cat) => cat.sub_category.name))];
 
@@ -85,6 +86,90 @@ const Shopproduct = () => {
    
 
 
+=======
+
+
+    const { product, loading } = useContext(UserContext);
+
+
+
+    const subcat = [...new Set(product.map((cat) => cat.sub_category.name))];
+
+    const [priceFilter, setPriceFilter] = useState('all');
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [isGridView, setIsGridView] = useState(true);
+
+    const handlePriceFilterChange = (priceRange) => {
+        setPriceFilter(priceRange);
+    };
+
+    const handleCategoryFilterChange = (category) => {
+        if (selectedCategories.includes(category)) {
+            setSelectedCategories(selectedCategories.filter((cat) => cat !== category));
+        } else {
+            setSelectedCategories([...selectedCategories, category]);
+        }
+    };
+
+    const filterProductsByPriceAndCategory = (products, priceFilter, categoryFilter) => {
+
+        return products.filter((product) => {
+            const price = product.mrp;
+            const category = product.sub_category.name;
+
+            if (priceFilter !== 'all' && categoryFilter.length > 0) {
+                return (
+                    priceFilterCheck(price, priceFilter) && categoryFilter.includes(category)
+                );
+            } else if (priceFilter !== 'all') {
+                return priceFilterCheck(price, priceFilter);
+            } else if (categoryFilter.length > 0) {
+                return categoryFilter.includes(category);
+            } else {
+                return true;
+            }
+        });
+    };
+
+    const priceFilterCheck = (price, priceFilter) => {
+        switch (priceFilter) {
+            case 'price-1':
+                return price >= 0 && price <= 1000;
+            case 'price-2':
+                return price > 1000 && price <= 3000;
+            case 'price-3':
+                return price > 3000 && price <= 5000;
+            case 'price-4':
+                return price > 5000 && price <= 10000;
+            case 'price-5':
+                return price > 10000
+            default:
+                return false;
+        }
+    };
+
+
+
+    const filteredProducts = filterProductsByPriceAndCategory(
+        product,
+        priceFilter,
+        selectedCategories
+
+
+    );
+
+
+    const showGridView = () => {
+        setIsGridView(true);
+    };
+
+    const showListView = () => {
+        setIsGridView(false);
+    };
+   
+
+
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
     return (
         <>
             {/* Page Header */}

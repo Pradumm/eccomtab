@@ -118,18 +118,26 @@ p {
 }
 
 a.dropdown-item.sub_cat {
+<<<<<<< HEAD
   padding: 10px 0 0 100px;
+=======
+  padding: 10px 0px 0 100px;
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 }
 a:active{
   color: #000;
 }
 
 .shop_add {
+<<<<<<< HEAD
   padding: 10px 20px;
 }
 
 td.align-middle.col_1 {
   width: 40%;
+=======
+  padding: 5px 0;
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 }
 
 .dropdown-item:hover {

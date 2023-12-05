@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import "../login/Login.css";
 import { UserContext } from "../Api/context/AppContext";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +11,13 @@ import logodeafault from "../../components/assets/logo-removebg-preview.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 function LoginPage() {
   const { setautho, setUser, setToken } = useContext(UserContext);
+=======
+import { Link, useNavigate } from "react-router-dom";
+
+import { FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+function LoginPage() {
+  const { autho, setautho, setUser, setToken } = useContext(UserContext);
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 
   const navigate = useNavigate();
 
@@ -27,10 +35,24 @@ function LoginPage() {
     setPassword(e.target.value);
   };
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
   const handleLogin = async (e) => {
     const payload = {
       username: email,
@@ -43,6 +65,38 @@ function LoginPage() {
         "http://143.244.142.0/api/v1/accounts/login",
         payload
       );
+<<<<<<< HEAD
+=======
+
+      const EmailAmit = localStorage.setItem("emailData", email);
+      const PasswordAmit = localStorage.setItem("PasswordAmit", password);
+
+      // Adjust the API endpoint as needed
+      console.log("Login successful", response.data);
+      let token = response.data.data.auth_token.access;
+      let user_id = response.data.data.user_id;
+
+      localStorage.setItem("token", token);
+      setToken(token);
+      setautho(true);
+      localStorage.setItem("user", response.data.data.user_id);
+
+      localStorage.setItem(
+        "make",
+        response.data.data.marketplace[0].marketplace_name
+      );
+
+      console.log(
+        response.data.data.marketplace[0].marketplace_name,
+        "________marke y"
+      );
+
+      setUser(user_id);
+      setEmail("");
+      setPassword("");
+
+      navigate("/home/main");
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 
       localStorage.setItem("emailData", email);
       localStorage.setItem("PasswordAmit", password);
@@ -114,12 +168,29 @@ function LoginPage() {
             placeholder="me@example.com"
             className="login-input"
           />
+<<<<<<< HEAD
+=======
+          {/* <label className="login-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={handlePasswordChange}
+            placeholder="••••••••••"
+            className="login-input"
+          /> */}
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 
           <div>
             <label className="login-label">Password</label>
             <div className="password-input-container">
               <input
+<<<<<<< HEAD
                 type={showPassword ? "text" : "password"}
+=======
+                type={showPassword ? 'text' : 'password'}
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
                 id="password"
                 name="password"
                 value={password}
@@ -127,10 +198,14 @@ function LoginPage() {
                 placeholder="••••••••••"
                 className="login-input"
               />
+<<<<<<< HEAD
               <div
                 className="password-toggle-icon"
                 onClick={handleTogglePassword}
               >
+=======
+              <div className="password-toggle-icon" onClick={handleTogglePassword}>
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </div>
             </div>
@@ -139,12 +214,17 @@ function LoginPage() {
           <button type="submit" className="login-button">
             Submit
           </button>
+<<<<<<< HEAD
           <p className="mt-3">
             <Link to="/forget-pass">Forget Password</Link>
           </p>
           <p className="mt-3">
             Created account? <Link to="/register">Register</Link>
           </p>
+=======
+          <p className="mt-3"><Link to="/forget-pass">Forget Password</Link></p>
+          <p className="mt-3">Created account? <Link to="/">Register</Link></p>
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
         </form>
         {error && <p className="login-error text-danger">{error}</p>}
       </div>
@@ -153,3 +233,5 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
+

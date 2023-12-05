@@ -1,5 +1,11 @@
 import React, { useState, useContext ,useEffect} from 'react'
 
+<<<<<<< HEAD
+=======
+// import { Link } from 'react-router-dom/dist';
+// import Maincate from './Maincate';\
+import { UserContext } from '../../Api/context/AppContext';
+>>>>>>> 1fe8341fa44ded06e4e9fd326c581ebdce9bf057
 import CartItem from '../CartItem';
 import Footer from '../../Footer';
 import Categorieslist from '../../Categorieslist';
