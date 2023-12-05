@@ -6,3 +6,11 @@ img.img_size {
     border: 1px solid;
     padding: 20px;
 }
+
+@media only screen and (max-width: 767px) and (min-width: 280px) 
+
+{
+    img.img_size {
+        height: 50px;
+    } 
+}

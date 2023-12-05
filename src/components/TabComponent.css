@@ -1,0 +1,29 @@
+section.order_page {
+    padding: 50px 30px;
+}
+
+/* .tab_bor {
+    border: 1px solid #000;
+} */
+
+.col_2_bor {
+    /* border-right: 1px solid; */
+    padding: 0;
+}
+
+div#v-pills-tabContent {
+    padding: 0;
+}
+
+.card-body {
+    padding: 0;
+}
+
+
+.nav-link {
+    padding: 15px 20px;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-left: none;
+    border-right: none;
+}

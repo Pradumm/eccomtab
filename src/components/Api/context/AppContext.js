@@ -1,199 +1,173 @@
-import React, { createContext, useState, useEffect } from 'react';
-
-import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import React, { createContext, useState, useEffect } from "react";
+import { useQuery, useQueryClient } from "react-query";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const UserContext = createContext();
 
 const AppContext = ({ children }) => {
+  const queryClient = useQueryClient();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [autho, setautho] = useState(false);
+  const [checkId, setcheckId] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
-
-    const location = useLocation()
-    const [token, setToken] = useState(localStorage.getItem('token') || null);
-
-    const [autho, setautho] = useState(false);
-
-    // console.log(categories,"________categories")
-    const [product, setProduct] = useState([])
-
-    const [cardItem, setCardItem] = useState([]);
-    const [cardsubtotal, setcardsubtotal] = useState(0);
-    const [cardCount, setCardcount] = useState(0)
-
-
-    const getdata = async () => {
-        const apiUrl =
-            "http://143.244.142.0/api/v1/parts/fetch/parts/?market_place=enata-automotive"; // Replace with your actual API endpoint.
-
-        await axios
-            .get(apiUrl)
-            .then((response) => {
-                console.log(response.data.results, "-------market");
-
-                setProduct(response.data.results)
-                // setCategories(response.data.results[0].sub_category);
-
-                // Assuming the API returns an array of product data.
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
-    };
-
-    useEffect(() => {
-        getdata();
-    }, [])
-
-    useEffect(() => {
-        const storedToken = localStorage.getItem('token');
-        if (storedToken) {
-            setToken(storedToken);
-        }
-
-    }, [token]);
-
-    useEffect(() => {
-        let count = 0;
-        cardItem.map((item) => (count += item.quantity))
-        setCardcount(count)
-
-        let subTotal = 0;
-        cardItem.map((item) => (subTotal += item.mrp * item.quantity))
-
-        setcardsubtotal(subTotal)
-
-    }, [cardItem]);
-
-
-    //  add to cart 
-
-
-
-
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [location])
-
-
-    const addToCard = (product, quantity) => {
-        const items = [...cardItem];
-
-        const index = items.findIndex((p) => p.id === product.id);
-
-        if (index !== -1) {
-            items[index].quantity = quantity;
-        } else {
-            const newItem = {
-                ...product,
-                quantity: quantity,
-            };
-            items.push(newItem);
-        }
-
-        setCardItem(items);
-
-        // Save the updated cart to localStorage
-        localStorage.setItem('shoppingCart', JSON.stringify(items));
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
     }
+  }, [token]);
 
-    const removeFromCard = (productId) => {
-        const updatedItems = cardItem.filter((item) => item.id !== productId);
-        setCardItem(updatedItems);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
-        // Save the updated cart to localStorage
-        localStorage.setItem('shoppingCart', JSON.stringify(updatedItems));
+  const [user, setUser] = useState(null);
+
+  // Check if the user is already logged in when the app loads
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(storedUser);
     }
+  }, []);
 
-    const handleQuantity = (type, product) => {
-        const items = [...cardItem];
+  const [cartlen, setCartlen] = useState(0);
 
-        const index = items.findIndex((p) => p.id === product.id);
-
-        if (type == "inc") {
-            items[index].quantity += 1
-        } else if (type === "dec") {
-            if (items[index].quantity === 1) return;
-            items[index].quantity -= 1
-
-        }
-
-        setCardItem(items)
+  useEffect(() => {
+    // Retrieve cartlen from localStorage on component mount
+    const storedCartlen = localStorage.getItem("cartlen");
+    if (storedCartlen) {
+      setCartlen(parseInt(storedCartlen, 10));
     }
+  }, []);
 
+  useEffect(() => {
+    // Update localStorage whenever cartlen changes
+    localStorage.setItem("cartlen", cartlen.toString());
+  }, [cartlen]);
 
+  const handleLogout = () => {
+    axios
+      .post("http://143.244.142.0/api/v1/accounts/logout", null, {
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      })
+      .then((response) => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("make");
 
+        setToken(null);
+        setUser(null);
 
-    // Load cart data from localStorage when the component mounts
-    useEffect(() => {
-        const savedCart = localStorage.getItem('shoppingCart');
-        if (savedCart) {
-            setCardItem(JSON.parse(savedCart));
+        navigate("/");
+      })
+      .catch((error) => {
+
+        console.error("Logout failed", error.response.data);
+      });
+  };
+
+  const addToCard = async (product, quantity) => {
+    setShowForm(false);
+
+    try {
+      await axios.post(
+        "http://143.244.142.0/api/v1/marketplace/add-to-cart/",
+        {
+          part_number: product.id,
+          user: user,
+          qty: quantity,
         }
-    }, []);
+      );
 
+      queryClient.invalidateQueries(["userList-data", user]);
 
-    const [user, setUser] = useState(null);
+      toast.success("Item added to cart successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 500, // Close the toast after 2 seconds
+      });
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    }
+  };
 
-    // Check if the user is already logged in when the app loads
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(storedUser);
-        }
-    }, []);
+  const fetchData = async () => {
+    const user = localStorage.getItem("user");
+    try {
+      const response = await axios.get(
+        `http://143.244.142.0/api/v1/marketplace/get-my-cart/list/?user=${user}`
+      );
+      return response.data.results;
+    } catch (error) {
+      throw error;
+    }
+  };
 
+  const { data } = useQuery(["userList-data", user, addToCard], fetchData, {
+    onSuccess: (data) => {
+      setCartlen(data.length);
 
+      let Id_x = data.map((item) => {
+        return item.part_number.id;
+      });
 
+      setcheckId(Id_x);
+      queryClient.setQueryData(["userList-data", user], data);
+    },
+  });
 
+  const removeFromCard = async (cartId) => {
+    try {
+      // Make DELETE request using Axios
+      const response = await axios.delete(
+        `http://143.244.142.0/api/v1/marketplace/add-to-cart/${cartId}/`
+      );
 
+      // Invalidate the query to trigger a refetch
+      queryClient.invalidateQueries(["userList-data", user]);
 
-    const handleLogout = () => {
-        axios
-            .post('http://143.244.142.0/api/v1/accounts/logout', null, {
-                headers: {
-                    Authorization: `JWT ${token}`,
-                },
-            })
-            .then((response) => {
-                console.log(response.data, "___________response");
-                localStorage.removeItem('token');
-                localStorage.removeItem('user');
-                setToken(null)
-                setUser(null);
-            })
-            .catch((error) => {
-                // Handle error, e.g., display an error message
-                console.error('Logout failed', error.response.data);
-            });
-    };
+      // You can also handle the success scenario as needed, like updating state or context
+    } catch (error) {
+      console.error("Error deleting item from cart:", error);
+    }
+  };
 
+  const HandleFormShow = () => {
+    setShowForm(true);
+  };
 
+  return (
+    <UserContext.Provider
+      value={{
+        addToCard,
+        autho,
+        setautho,
+        handleLogout,
+        setUser,
+        user,
+        token,
+        setToken,
+        setautho,
+        cartlen,
+        setCartlen,
+        removeFromCard,
+        data,
+        checkId,
 
-
-    console.log(cardItem, "---cardItem");
-    return (
-        <UserContext.Provider value={{
-
-            product,
-            setProduct,
-            cardItem,
-            addToCard,
-            removeFromCard,
-            handleQuantity,
-            cardsubtotal,
-            cardCount,
-            autho,
-            setautho,
-            handleLogout,
-            setUser,
-            user,
-            token,
-            setToken,
-            setautho
-        }}>
-            {children}
-        </UserContext.Provider>
-    );
+        HandleFormShow,
+        showForm,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export default AppContext;

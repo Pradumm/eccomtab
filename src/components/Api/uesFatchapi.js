@@ -7,19 +7,23 @@ export const useFetchApi = (url) => {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [url]);
+
+    const refetch = () => {
+        setLoading(true);
+        fetchData();
+    };
 
     const fetchData = async () => {
         try {
             const response = await axios.get(url);
-            console.log(response.data, "___________-result");
             setData(response.data.results);
             setLoading(false);
         } catch (error) {
             console.log(error);
-            setLoading(false); // Don't forget to set loading to false on error.
+            setLoading(false); 
         }
     };
 
-    return { data, loading };
+    return { data, loading, refetch };
 };

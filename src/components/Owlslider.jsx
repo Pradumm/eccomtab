@@ -3,22 +3,26 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import "../components/Owlslider.css"
-
+import logo1 from "../components/assets/vendor-1.jpg"
+import logo2 from "../components/assets/vendor-2.jpg"
+import logo3 from "../components/assets/vendor-3.jpg"
+import logo4 from "../components/assets/vendor-4.jpg"
+import logo5 from "../components/assets/vendor-5.jpg"
 const logos = [
   {
-    img1:"img/vendor-1.jpg"
+    img1:logo1
   },
   {
-    img1:"img/vendor-2.jpg"
+    img1:logo2
   },
   {
-    img1:"img/vendor-3.jpg"
+    img1:logo3
   },
   {
-    img1:"img/vendor-4.jpg"
+    img1:logo4
   },
   {
-    img1:"img/vendor-5.jpg"
+    img1:logo5
   },
 ];
 
